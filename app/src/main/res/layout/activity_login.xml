@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/color_white"
-                bind:errorTextInputLayout="@{viewModel.usernameError}"
+                bind:errorTextInputLayoutEmail="@{viewModel.usernameError}"
                 >
 
                 <EditText

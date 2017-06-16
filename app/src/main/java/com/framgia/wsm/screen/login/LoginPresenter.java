@@ -19,15 +19,16 @@ import io.reactivex.functions.Consumer;
  * Listens to user actions from the UI ({@link LoginActivity}), retrieves the data and updates
  * the UI as required.
  */
-final class LoginPresenter implements LoginContract.Presenter {
+public class LoginPresenter implements LoginContract.Presenter {
     private static final String TAG = LoginPresenter.class.getName();
 
-    private LoginContract.ViewModel mViewModel;
-    private UserRepository mUserRepository;
-    private TokenRepository mTokenRepository;
-    private Validator mValidator;
+    private static LoginContract.ViewModel mViewModel;
+    private static UserRepository mUserRepository;
+    private static TokenRepository mTokenRepository;
+    private static Validator mValidator;
     private CompositeDisposable mCompositeDisposable;
-    private BaseSchedulerProvider mSchedulerProvider;
+    private static BaseSchedulerProvider mSchedulerProvider;
+    private static LoginPresenter mInstance = null;
 
     LoginPresenter(UserRepository userRepository, TokenRepository tokenRepository,
             Validator validator, BaseSchedulerProvider schedulerProvider) {
@@ -36,6 +37,14 @@ final class LoginPresenter implements LoginContract.Presenter {
         mValidator = validator;
         mCompositeDisposable = new CompositeDisposable();
         mSchedulerProvider = schedulerProvider;
+    }
+
+    public static LoginPresenter getInstance() {
+        if (mInstance == null) {
+            mInstance = new LoginPresenter(mUserRepository, mTokenRepository, mValidator,
+                    mSchedulerProvider);
+        }
+        return mInstance;
     }
 
     @Override
@@ -94,12 +103,14 @@ final class LoginPresenter implements LoginContract.Presenter {
         }
     }
 
-    private void validateUserNameInput(String userName) {
+    public void validateUserNameInput(String userName) {
         String messageUsername = mValidator.validateValueNonEmpty(userName);
         if (StringUtils.isBlank(messageUsername)) {
             messageUsername = mValidator.validateEmailFormat(userName);
             if (!StringUtils.isBlank(messageUsername)) {
                 mViewModel.onInputUserNameError(messageUsername);
+            } else {
+                mViewModel.onInputUserNameError("");
             }
         } else {
             mViewModel.onInputUserNameError(messageUsername);

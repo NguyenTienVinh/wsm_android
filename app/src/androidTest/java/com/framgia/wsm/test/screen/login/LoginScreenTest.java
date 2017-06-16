@@ -27,7 +27,7 @@ public class LoginScreenTest extends ActivityInstrumentationTestCase2<LoginActiv
     }
 
     @Given("^I have a Login Screen")
-    public void i_have_a_MainActivity() {
+    public void i_have_a_login_screen() {
         assertNotNull(getActivity());
     }
 
