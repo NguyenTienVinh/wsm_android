@@ -44,7 +44,7 @@ public class LoginScreenTest extends ActivityInstrumentationTestCase2<LoginActiv
     }
 
     @Then("^I should see error on the (\\S+)$")
-    public void i_should_see_error_on_the_email(final String view) {
+    public void i_should_see_error_on_the_keyword(final String view) {
         boolean isKeywordView = "email".equals(view);
         int viewId = isKeywordView ? R.id.txtInputLayoutEmail : R.id.txtInputLayoutPassword;
         int errorResourceId = isKeywordView ? R.string.invalid_email_format : R.string.is_empty;

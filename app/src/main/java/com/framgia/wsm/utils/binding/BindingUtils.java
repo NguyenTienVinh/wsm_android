@@ -174,7 +174,6 @@ public final class BindingUtils {
             @Override
             public void afterTextChanged(Editable s) {
                 LoginPresenter.getInstance().validateUserNameInput(s.toString());
-                //loginPresenter.validateUserNameInput(s.toString());
             }
         });
     }

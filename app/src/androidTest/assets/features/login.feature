@@ -1,5 +1,5 @@
 Feature: Login
-#     Perform search on keyword and limit number are inputted
+#     Perform error on email and password are inputted
 
   Scenario Outline: Input email and password in wrong format
     Given I have a Login Screen
@@ -8,8 +8,8 @@ Feature: Login
     Then I should see error on the <view>
 
     Examples:
-      | email         | password | view  |
-      | vinh          | vinh     | email |
+      | email | password | view  |
+      | vinh  | 123      | email |
 
   Scenario Outline: Input email and password in correct format
     Given I have a Login Screen
