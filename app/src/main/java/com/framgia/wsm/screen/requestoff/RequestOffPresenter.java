@@ -73,6 +73,8 @@ final class RequestOffPresenter implements RequestOffContract.Presenter {
         String errorMessage = mValidator.validateValueNonEmpty(requestOff.getReason());
         if (StringUtils.isNotBlank(errorMessage)) {
             mViewModel.onInputReasonError(errorMessage);
+        } else {
+            mViewModel.onInputReasonError("");
         }
         try {
             return mValidator.validateAll(requestOff);
@@ -80,5 +82,9 @@ final class RequestOffPresenter implements RequestOffContract.Presenter {
             Log.e(TAG, "validateDataInput: ", e);
             return false;
         }
+    }
+
+    public void setSchedulerProvider(BaseSchedulerProvider schedulerProvider) {
+        mSchedulerProvider = schedulerProvider;
     }
 }
